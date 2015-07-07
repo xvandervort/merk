@@ -1,0 +1,17 @@
+7/6
+  Now it builds a tree with tests. Time to commit to git!
+    Next: Comparing 2 trees.
+    How do you do that? I think you start from the top and if they're the same, fine. Otherwise you have to find overlaps at every level. Any level with no ovrlap is where you stop. Store similarities in a subtree.
+    The assumption is that if there is any similarity, it will be in a contiguous subtree, not in random locations.
+    Done!
+    Next up: write a sample program using the gem to do some checks.
+
+7/1
+  Okay, it now builds a complete tree.
+  Next step is to build a few and store them into a db or something so I can do comparisons.
+
+6/23/2015
+  The merk gem provides tools to easily create and compare merkle trees. This is so I can explore possible uses for data validation.
+  Got it so it reads in a file.
+  Next: build the tree.
+
