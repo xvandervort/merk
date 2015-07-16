@@ -51,4 +51,26 @@ describe Merk::TComp do
       expect(find_match(@tree1, @tree2)).to eq([['bbb'], ['ddd', 'eee'], ['hhh', 'iii', 'jjj', 'kkk']])
     end
   end
+  
+  context "harder checks" do
+    
+    
+    
+    it "should find multiple ovrlaps" do
+      
+      before :each do
+        @tree1 = [
+          ['aaa'],
+          ['bbb', 'ccc'],
+          ['ddd', 'eee', 'fff', 'ggg'],
+          ['hhh', 'iii', 'jjj', 'kkk', 'lll', 'mmm', 'nnn', 'ooo'],
+          ['ppp', 'qqq', 'rrr', 'sss', 'ttt', 'uuu', 'vvv', 'www', 'xxx', 'yyy', 'zzz', 'aab, 'bbc', 'ccd', 'dde', 'eef']
+        ]
+        
+        @tree2 = [
+          
+        ]
+      end
+    end
+  end
 end
