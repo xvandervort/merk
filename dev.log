@@ -1,3 +1,11 @@
+7/16
+  There is an easy way of comparing trees, and a hard way. I've done the easy way but the hard needs to be done too, because two trees may have more than 1 subtree of overlap. Great fun.
+
+  Future features: Create an image file showing a tree, or overlapping trees. Or a heat map of overlaps! That sounds ... useful?
+    Possibly more useful, trace overlaps back to their source.
+    Also: output results in JSON or serialize to file.
+    Have I done any work at all with command line options for this thing?
+
 7/6
   Now it builds a tree with tests. Time to commit to git!
     Next: Comparing 2 trees.

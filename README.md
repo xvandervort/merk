@@ -1,9 +1,10 @@
 # Merk
 
-TODO: Write a gem description
+This is experimental code for turning arbitrary data into a Merkle tree and comparing two trees.
 
 ## Installation
 
+(the usual methods)
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -20,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+coming soon ...
 
 ## Contributing
 
