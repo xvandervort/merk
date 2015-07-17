@@ -4,7 +4,7 @@ require 'digest'
 describe Merk::Hasher do
   include Merk::Hasher
   
-  context "makeing hashes" do
+  context "making hashes" do
     before :each do
       @list = [ 'one', 'two', 'three' ]
     end

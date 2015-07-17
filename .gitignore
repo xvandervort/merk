@@ -14,3 +14,5 @@
 mkmf.log
 *.gem
 *.komodoproject
+*.bsh
+

@@ -53,24 +53,21 @@ describe Merk::TComp do
   end
   
   context "harder checks" do
+    before :each do
+       @tree1 = [
+         ['aaa'],
+         ['bbb', 'ccc'],
+         ['ddd', 'eee', 'fff', 'ggg'],
+         ['hhh', 'iii', 'jjj', 'kkk', 'lll', 'mmm', 'nnn', 'ooo'],
+         ['ppp', 'qqq', 'rrr', 'sss', 'ttt', 'uuu', 'vvv', 'www', 'xxx', 'yyy', 'zzz', 'aab', 'bbc', 'ccd', 'dde', 'eef']
+       ]
+       
+       #@tree2 = [
+         
+       #]
+     end
+   
     
-    
-    
-    it "should find multiple ovrlaps" do
-      
-      before :each do
-        @tree1 = [
-          ['aaa'],
-          ['bbb', 'ccc'],
-          ['ddd', 'eee', 'fff', 'ggg'],
-          ['hhh', 'iii', 'jjj', 'kkk', 'lll', 'mmm', 'nnn', 'ooo'],
-          ['ppp', 'qqq', 'rrr', 'sss', 'ttt', 'uuu', 'vvv', 'www', 'xxx', 'yyy', 'zzz', 'aab, 'bbc', 'ccd', 'dde', 'eef']
-        ]
-        
-        @tree2 = [
-          
-        ]
-      end
-    end
+    pending "should find multiple overlaps"
   end
 end

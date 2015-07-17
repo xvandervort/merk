@@ -1,3 +1,6 @@
+7/17
+  Switching order of next tasks. Write out results first. Apparently I had other work underway - comparing for multiple overlaps and validating a tree. But i can't do the last one until it's possible to read in a tree from somewhere and I'm not yet sure of an efficient way to do the other. So writing results out it is!
+
 7/16
   There is an easy way of comparing trees, and a hard way. I've done the easy way but the hard needs to be done too, because two trees may have more than 1 subtree of overlap. Great fun.
 
@@ -5,8 +8,9 @@
     Possibly more useful, trace overlaps back to their source.
     Also: output results in JSON or serialize to file.
     Have I done any work at all with command line options for this thing? Apparently not. Starting it now.
+    NEXT: From the command line, read in 2 (binary) files and compare them.
+    THEN: Write out results as mentioned above.
     
-
 7/6
   Now it builds a tree with tests. Time to commit to git!
     Next: Comparing 2 trees.
