@@ -1,3 +1,36 @@
 #!/usr/bin/env ruby
 
 require 'merk'
+require 'optparse'
+
+@params = {}
+option_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: merk [options]"  # minimalist indeed
+  
+  opts.on('-h', '--help', 'Display this message') do
+    puts opts
+    exit
+  end
+  
+  opts.on('-i', '--input FILE', String, 'Input file to read in and treeify') do |file|
+    if File.exist?(file) && File.readable?(file)
+      @params[:input] = file
+    else
+      raise "File #{ file } not found or not readable."
+    end
+  end
+  
+  opts.on('-t', '--type TYPE', [:text, :binary], "Type of file being read. Default=binary (i.e. png)") do |type|
+    @params[:type] = type
+  end
+end.parse!
+  
+# add in defaults
+@params[:type] ||= :binary
+
+@m = Mtree.new
+
+# TODO: Implement text file ingestion
+fh = File.open(@params[:input], "r")
+@m.ingest fh
+tree = @m.make_tree
