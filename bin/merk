@@ -1,11 +1,15 @@
 #!/usr/bin/env ruby
 
-require 'merk'
+require_relative '../lib/merk'
 require 'optparse'
 
 @params = {}
-option_parser = OptionParser.new do |opts|
+OptionParser.new do |opts|
   opts.banner = "Usage: merk [options]"  # minimalist indeed
+  
+  opts.on('-f', '--format FORMAT', Merk::Output::MODES, "Output encoding. Default is text") do |fmt|
+    @params[:format] = fmt
+  end
   
   opts.on('-h', '--help', 'Display this message') do
     puts opts
@@ -20,6 +24,14 @@ option_parser = OptionParser.new do |opts|
     end
   end
   
+  opts.on('-o', '--output FILE', "File to which output should be written (default is console)") do |file|
+    @params[:output] = file
+  end
+  
+  opts.on('-p', '--pretty', "Text output (only) made slightly more human readable") do
+    @params[:pretty] = true
+  end
+  
   opts.on('-t', '--type TYPE', [:text, :binary], "Type of file being read. Default=binary (i.e. png)") do |type|
     @params[:type] = type
   end
@@ -27,10 +39,23 @@ end.parse!
   
 # add in defaults
 @params[:type] ||= :binary
+@params[:format] ||= "text"
+# assumption: Data representation is for machines. not humans, so don't waste effort prettifying it
+@params[:pretty] ||= false
 
 @m = Mtree.new
 
 # TODO: Implement text file ingestion
 fh = File.open(@params[:input], "r")
 @m.ingest fh
-tree = @m.make_tree
+tree = @m.make_tree 
+
+# and now output
+o = if @params[:output].nil?
+  Merk::Output.new mode: @params[:format], pretty: @params[:pretty]
+  
+else
+  Merk::Output.new file: @params[:output], mode: @params[:format], pretty_print: @params[:pretty]
+end
+
+o.write tree

@@ -1,5 +1,13 @@
+7/20
+  Probably won't do much today but if I do, I'll wire up the output writer to the command line. Okay. Minimally wired up.
+  NEXT: command line options specifying format should actually work? For no apparent reason i added a pretty print option. NOW I'll do command line! I'm not liking the json format. Thee. That's better!
+
 7/17
   Switching order of next tasks. Write out results first. Apparently I had other work underway - comparing for multiple overlaps and validating a tree. But i can't do the last one until it's possible to read in a tree from somewhere and I'm not yet sure of an efficient way to do the other. So writing results out it is!
+  NEXT: Write results from the command line (the writer exists but needs connected to the executable)
+  THEN: Command line comparing 2 files
+  AND THEN: Back to comparing fragments
+  BUT: What about reading in text files and breaking into ngrams? (reasonable defaults needed but also some control)
 
 7/16
   There is an easy way of comparing trees, and a hard way. I've done the easy way but the hard needs to be done too, because two trees may have more than 1 subtree of overlap. Great fun.

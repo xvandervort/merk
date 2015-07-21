@@ -53,5 +53,10 @@ describe Merk::Output do
       o = Merk::Output.new mode: 'serial'
       expect(o.fmt(@data)).to eq("\x04\b[\a[\x06I\"\bone\x06:\x06ET[\aI\"\btwo\x06;\x00TI\"\nthree\x06;\x00T")
     end
+    
+    it "should print trees as nice rows" do
+      o = Merk::Output.new 
+      expect(o.fmt(@data, pretty: true)).to eq("#{ @data.first.to_s }\n#{@data.last.to_s }")
+    end
   end
 end

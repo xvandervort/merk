@@ -5,41 +5,48 @@ module Merk
     attr_reader :mode, :file
     MODES = ['text', 'serial', 'json'] 
     
-    def initialize(mode: MODES.first, file: nil)
+    def initialize(file: nil, mode: MODES.first, pretty_print: false)
       raise(ArgumentError, "Unknown mode #{ mode }") unless MODES.include?(mode)
       @mode = mode
       @file = file
+      @pretty = pretty_print
     end
     
     # formats data according to mode
-    def fmt(data)
+    def fmt(data) 
       case @mode
       when 'json'
-        JSON.generate(data)
+        JSON.generate({tree: data})
         
       when 'serial'
         Marshal.dump data
         
       else
-        data.to_s
+        if @pretty == true
+          data.collect{|x| x.to_s}.join("\n")
+        else
+          data.to_s
+        end
       end
     end
-  end
-  
-  # writes to file as needed
-  # TODO: Add a png mode where it writes out 
-  def write(data)
-    if @file.nil? || @mode == 'none'
-      false
-      
-    else
     
-      raise(ArgumentError, "Unable to open file #{ @file } for writing.") unless File.writable_real?(@file)
+    # writes to file as needed
+    # TODO: Add a png mode where it writes out 
+    def write(data)
       out = fmt(data)
-      f1 = File.open(@file, "w")
-      f1.puts out
-      f1.close
-      true
+
+      if @file.nil?
+        # If there's no file, just use puts
+        puts out
+        
+      else
+      
+        #raise(ArgumentError, "Unable to open file #{ @file } for writing.") unless File.writable?(@file)
+        f1 = File.open(@file, "w")
+        f1.puts out
+        f1.close
+        true
+      end
     end
   end
 end
