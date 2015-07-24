@@ -1,3 +1,7 @@
+7/24
+  Broken tests! Eeeeeek! (fixed) Why don't trees have meta-data? (source and all that stuff)?
+  
+
 7/20
   Probably won't do much today but if I do, I'll wire up the output writer to the command line. Okay. Minimally wired up.
   NEXT: command line options specifying format should actually work? For no apparent reason i added a pretty print option. NOW I'll do command line! I'm not liking the json format. Thee. That's better!

@@ -13,7 +13,8 @@ module Merk
     end
     
     # formats data according to mode
-    def fmt(data) 
+    def fmt(data, pretty: false)
+      @pretty = pretty 
       case @mode
       when 'json'
         JSON.generate({tree: data})

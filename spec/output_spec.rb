@@ -46,7 +46,7 @@ describe Merk::Output do
     
     it "should return json" do
       o = Merk::Output.new mode: 'json'
-      expect(o.fmt(@data)).to eq("[[\"one\"],[\"two\",\"three\"]]")
+      expect(o.fmt(@data)).to eq("{\"tree\":[[\"one\"],[\"two\",\"three\"]]}")
     end
     
     it "should serialize" do
