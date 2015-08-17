@@ -12,8 +12,8 @@ module Merk
       while list.length > 0
         one = list.shift
         two = list.shift || one
-        d << one
-        d << two
+        d << one.to_s
+        d << two.to_s
         out << d.hexdigest
         d.reset
       end

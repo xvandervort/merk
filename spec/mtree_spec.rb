@@ -13,6 +13,11 @@ describe Mtree do
       m = Mtree.new [1, 2]
       expect(m.raw).to eq([1,2])
     end
+    
+    it "should automatically build tree when supplied raw input" do
+      m = Mtree.new [1, 2, 3, 4]
+      expect(m.tree.size).to eq(2)
+    end
   end
   
   context "piecmeal building" do
@@ -53,7 +58,7 @@ describe Mtree do
       top = make_tree_the_hard_way level_two
 
       m = Mtree.new list
-      expect(m.make_tree).to eq([top, level_two])
+      expect(m.tree).to eq([top, level_two])
     end
     
     it "retrieves a subtree given top node value" do
@@ -69,7 +74,6 @@ describe Mtree do
     
     it "should find element in tree" do
       m = Mtree.new ['aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff']
-      m.make_tree
       top_node = 'a70145e430c9ffc0527e6679bd3d14c3819921c7bdcee060e3e848c1e60fe771'
       
       x, y = m.find_element top_node

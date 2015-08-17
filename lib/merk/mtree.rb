@@ -5,10 +5,10 @@ class Mtree
   attr_reader :raw, :tree
   
   def initialize(args = [])
-    # If given raw data, why doesn't it automatically build the tree now?
-    # Or at least have a switch allowing that to happen?
     @raw = args
     @tree = []
+
+    make_tree unless @raw.empty?    
   end
   
   def <<(arg)
@@ -33,7 +33,7 @@ class Mtree
   # builds a merkle tree from the bottom to the top
   def make_tree
     @tree = []  # this is where the levels of the merk tree will be stored
-    layer = @raw
+    layer = @raw.clone
     size = 99
 
     while size > 1 
@@ -53,7 +53,7 @@ class Mtree
   
   # quick and dirty print to console
   def pp
-    @tree.reverse.each do |l|
+    @tree.each do |l|
       puts l.join(", ")
     end
     
