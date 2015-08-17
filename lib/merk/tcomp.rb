@@ -40,5 +40,47 @@ module Merk
       
       match
     end
+    
+    def compare_rows(row1, row2)
+      # we need to know the positions of matches, not the exact matching element
+      matches = []
+      row2.each do |e|
+        i = row1.index(e)
+        matches << i unless i.nil?
+      end
+      
+      matches
+    end
+    
+    def find_all_matches(t1, t2)
+      t1a = if t1.first.size >1
+        t1.clone.reverse
+      else
+        t1.clone
+      end
+      
+      t2a = if t2.first.size >1
+        t2.clone.reverse
+      else
+        t2.clone
+      end
+    
+      # start at the top of one tree and check the other one for everything, working down until you find a match.
+      # Then pursue that match all the way down.
+      # Then, finish up the remainder in the same way. That's going to be the hard part.
+      list = t2a.flatten
+      t1a.each do |current_level|
+        current_level.each do |node|
+          if list.include?(node)
+            #subtrees << get_subtree(from here down ...)
+            # from any given node, there is only one possible subtree.
+            # so that must be sent for comparison
+            # How do I define a subtree?
+            # form a node, it is the two children and their children, all the way down.
+            #But there's no explicit indexing of children. So, how do we find them?
+          end
+        end 
+      end
+    end
   end
 end

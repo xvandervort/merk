@@ -62,12 +62,20 @@ describe Merk::TComp do
          ['ppp', 'qqq', 'rrr', 'sss', 'ttt', 'uuu', 'vvv', 'www', 'xxx', 'yyy', 'zzz', 'aab', 'bbc', 'ccd', 'dde', 'eef']
        ]
        
-       #@tree2 = [
-         
-       #]
+       @tree2 = [
+         ['aaa'],
+         ['bbb', 'ccc'],
+         ['ddd', 'zzr', 'zzs', 'zzt'],
+         ['hhh', 'iii', 'zzb', 'zzc', 'zzd', 'zze', 'zzf', 'ooo'],
+         ['ppp', 'qqq', 'rrr', 'sss', 'zzi', 'zzj', 'zzk', 'zzl', 'zzm', 'zzn', 'zzm', 'zzo', 'zzp', 'zzq', 'dde', 'eef']
+       ]
      end
    
     
-    pending "should find multiple overlaps"
+    it "should find overlap at one level" do
+      expect(compare_rows(@tree1[2], @tree2[2])).to eq([0])
+    end
+    
+    it "should find multiple overlaps at one level"
   end
 end

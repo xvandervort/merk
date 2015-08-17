@@ -1,11 +1,24 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/merk'
+include Merk
 require 'optparse'
+
+def file_checker(file, &block)
+  if File.exist?(file) && File.readable?(file)
+    yield file
+  else
+    raise "File #{ file } not found or not readable."
+  end
+end
 
 @params = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: merk [options]"  # minimalist indeed
+  
+  opts.on('-c', '--compare-to FILE', "File to compare the input file to") do |file|
+    @parrams[:other_file] = file
+  end
   
   opts.on('-f', '--format FORMAT', Merk::Output::MODES, "Output encoding. Default is text") do |fmt|
     @params[:format] = fmt
@@ -17,10 +30,8 @@ OptionParser.new do |opts|
   end
   
   opts.on('-i', '--input FILE', String, 'Input file to read in and treeify') do |file|
-    if File.exist?(file) && File.readable?(file)
-      @params[:input] = file
-    else
-      raise "File #{ file } not found or not readable."
+    file_checker(file) do |f|
+      @params[:input] = f
     end
   end
   
@@ -35,6 +46,7 @@ OptionParser.new do |opts|
   opts.on('-t', '--type TYPE', [:text, :binary], "Type of file being read. Default=binary (i.e. png)") do |type|
     @params[:type] = type
   end
+  
 end.parse!
   
 # add in defaults
@@ -43,12 +55,8 @@ end.parse!
 # assumption: Data representation is for machines. not humans, so don't waste effort prettifying it
 @params[:pretty] ||= false
 
-@m = Mtree.new
-
 # TODO: Implement text file ingestion
-fh = File.open(@params[:input], "r")
-@m.ingest fh
-tree = @m.make_tree 
+tree = make_tree_from @params[:input]
 
 # and now output
 o = if @params[:output].nil?
