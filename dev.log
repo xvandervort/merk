@@ -1,16 +1,19 @@
+4/18/2019
+  tree builder seems to be dumping the bottom row, which makes place comparisons impossible. FIX!
+
 8/17
-  Finding multiple overlaps is hard. Is there soemthing else that is worth my effort now?
+  Finding multiple overlaps is hard. Is there something else that is worth my effort now?
   In theory, if you find two things the same at an upper level, the entire subtree will match. So it's just a question of matching each level and subtracting out things already seen. That is, when you find a similarity, collect the entire subtree automatically. Then you can do stats on them, too.
   Here's the problem, though, the trees being compared might not be of the same height.
   Hmm. One interesting (implicit) assumption of a merkle tree is that EVERY element is unique. But when using text as the base, this may not hold true! (It is protected in Bitcoin because transactions have signatures applied after differing inputs and outputs. It is still theoreticallhy possible to have collisions there but it is highly unlikely). Example: suppose your bottom nodes are: ['to b', 'e or', ' not', 'to b']. Hmmmm. This actually does get you differences. Let's try again:
   ['1000', '1000', '1000', '1000'] or ['I am', ' goin', 'g to', ' go ', 'in, ', 'I am']. See? Repeated node values should be guarded against. You must guard against repeated node value sequences. One repeat makes little difference, but if a sequence of several is repeated it gives you a problem when doing comparisons later (though it should damp out in a big enough tree veentually).
   So, how to prevent? simplest possible method: add a sequence number to every bottom node. So the text example above would become:
   ['I am0', ' goin1', 'g to2', ' go 3', 'in, 4', 'I am5'], thus no 2 nodes are ever the same, even though their initializing data are the same.
-  IMPORTANT TODO: Add sequence numbers before hashing raw inputs.    
-    
+  IMPORTANT TODO: Add sequence numbers before hashing raw inputs.
+
 
 7/27
-  Against my better judgement, I added 3 files to a fixtures folder under spec, so I can test with real trees. 
+  Against my better judgement, I added 3 files to a fixtures folder under spec, so I can test with real trees.
 
 7/26
   Still working on the 2 files thing.
@@ -20,7 +23,7 @@
   Done: Started moving functions such as reading a file and making a tree out of the executable and into the Merk module. That makes it slightly easier to extend to reading another file.
   BUT FIRST: allow control of chunk size from the command line client (shouldn't get too far ahead of the capabilities in the underlying code!).
   THEN: compare two files from the command line
-  
+
 7/20
   Probably won't do much today but if I do, I'll wire up the output writer to the command line. Okay. Minimally wired up.
   NEXT: command line options specifying format should actually work? For no apparent reason i added a pretty print option. NOW I'll do command line! I'm not liking the json format. Thee. That's better!
@@ -41,7 +44,7 @@
     Have I done any work at all with command line options for this thing? Apparently not. Starting it now.
     NEXT: From the command line, read in 2 (binary) files and compare them.
     THEN: Write out results as mentioned above.
-    
+
 7/6
   Now it builds a tree with tests. Time to commit to git!
     Next: Comparing 2 trees.
@@ -58,4 +61,3 @@
   The merk gem provides tools to easily create and compare merkle trees. This is so I can explore possible uses for data validation.
   Got it so it reads in a file.
   Next: build the tree.
-
