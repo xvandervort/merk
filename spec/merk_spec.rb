@@ -19,9 +19,10 @@ describe Merk do
       expect(fh).to receive(:eof).and_return(true)
     end
 
-    it "should make one layer" do
+    it "should make only 1 layer above raw" do
       tree = make_tree_from(@file_name)
       expect(tree).to be_kind_of(Array)
+      expect(tree.first.size).to eq(1) # not enough data for a second node
       expect(tree.size).to eq(2)
     end
 
