@@ -3,23 +3,23 @@ require_relative 'hasher'
 class Mtree
   include Merk::Hasher
   attr_reader :raw, :tree
-  
+
   def initialize(args = [])
     @raw = args
     @tree = []
 
-    make_tree unless @raw.empty?    
+    make_tree unless @raw.empty?
   end
-  
+
   def <<(arg)
     if arg.is_a?(Array)
       @raw.concat arg
-      
+
     else
       @raw << arg
     end
   end
-  
+
   # IN: a file handle and chunk size
   # Assumption: The file handle is open
   # and will be closed after we're done here.
@@ -28,38 +28,43 @@ class Mtree
       @raw << fh.read(chunk_size)
     end
   end
-  
+
   # assumes raw is filled and
   # builds a merkle tree from the bottom to the top
   def make_tree
-    @tree = []  # this is where the levels of the merk tree will be stored
+      # this is where the levels of the merk tree will be stored
     layer = @raw.clone
     size = 99
+    d = Digest::SHA256.new
+    @tree = []
+    @tree << @raw.collect do |r|
+      d.reset
+      d << r.to_s
+      d.hexdigest
+    end
 
-    while size > 1 
+    while size > 1
       layer2 = hash_all(layer)
 
       @tree << layer2.clone
       layer = layer2.clone
       size = layer.size
     end
-    
+
     # but doing this gives you the raw data at the top and the single-node apex at the bottom
     # this is confusing so the tree needs to be flipped upside down.
     @tree.reverse!
-    
-    @tree
   end
-  
+
   # quick and dirty print to console
   def pp
     @tree.each do |l|
       puts l.join(", ")
     end
-    
+
     true
   end
-  
+
   def find_element(unk)
     x = -1
     y = nil
@@ -67,10 +72,10 @@ class Mtree
       x += 1
       y = @tree[x].index(unk)
     end
-    
+
     [x, y]  # @tree[x][y] = coordinates of the given element
   end
-  
+
   # extract contiguous subelements from a tree starting from the apex and working down
   # and return results as a tree. Hmmm. That means just find the bottom and allow it to build itself up.
   # IF and only if the tree is correctly formed.
@@ -80,7 +85,7 @@ class Mtree
     new_tree = Mtree.new
     new_tree.tree << [@tree[x][y]]
     num_elements = 1
-    
+
     unless y.nil?
       # extract the elements below into a new tree.
       #every level below should have twice as many elements as the current,
@@ -93,17 +98,12 @@ class Mtree
         puts " "
         num_elements *= 2
         y *= 2
-        
+
         #puts "x = #{ x}; y = #{ y}; number of elements to pull = #{ num_elements}"
         new_tree.tree << @tree[x][y, num_elements]
       end
     end
-    
+
     new_tree
   end
 end
-
-
-# Add an array of data from the start OR
-# add one element at a time, or both.
-# start with array 
