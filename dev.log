@@ -1,5 +1,5 @@
 4/18/2019
-  tree builder seems to be dumping the bottom row, which makes place comparisons impossible. FIX!
+  tree builder seems to be dumping the bottom row, which makes place comparisons impossible. FIXED!
 
 8/17
   Finding multiple overlaps is hard. Is there something else that is worth my effort now?

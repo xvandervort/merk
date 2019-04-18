@@ -32,9 +32,16 @@ class Mtree
   # assumes raw is filled and
   # builds a merkle tree from the bottom to the top
   def make_tree
-    @tree = []  # this is where the levels of the merk tree will be stored
+      # this is where the levels of the merk tree will be stored
     layer = @raw.clone
     size = 99
+    d = Digest::SHA256.new
+    @tree = []
+    @tree << @raw.collect do |r|
+      d.reset
+      d << r.to_s
+      d.hexdigest
+    end
 
     while size > 1
       layer2 = hash_all(layer)
@@ -47,10 +54,6 @@ class Mtree
     # but doing this gives you the raw data at the top and the single-node apex at the bottom
     # this is confusing so the tree needs to be flipped upside down.
     @tree.reverse!
-    p "tree size is #{@tree.size}"
-    p @tree
-    p "*******************************"
-    @tree
   end
 
   # quick and dirty print to console
@@ -104,8 +107,3 @@ class Mtree
     new_tree
   end
 end
-
-
-# Add an array of data from the start OR
-# add one element at a time, or both.
-# start with array
